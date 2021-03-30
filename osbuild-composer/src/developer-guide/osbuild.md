@@ -32,7 +32,120 @@ The following subsections describe how OSBuild tries to achieve the outlined hig
 
 ### Manifest versions
 
-TODO: v1 vs. v2
+Both manifests are JSON files *(note that comments are not allowed in JSON, so the examples below are not actually valid JSON)*.
+
+#### Version 1
+```yaml
+{
+   # This version contains 2 top-level keys.
+   # First sources, these get downloaded from a network and are available
+   # in the stages.
+   "sources": {},
+   # Second is a pipeline, which can optionally contain a nested "build"
+   # pipeline.
+   "pipeline": {
+      # The build pipeline is used to create a build container that is
+      # later used for building the actual OS artifact. This is mostly
+      # to increase reproducibility and host-guest separation.
+      # Also note that this is optional.
+      "build": {
+         "pipeline": {
+            "stages": [
+               {
+                  "name": "",
+                  "options": {}
+               },
+               {
+                  "name": "",
+                  "options": {}
+               }
+            ],
+            "runner": ""
+         }
+      },
+      # The pipeline itself is a list of osbuild stages.
+      "stages": [
+         {
+            "name": "",
+            "options": {}
+         },
+         {
+            "name": "",
+            "options": {}
+         }
+      ],
+      # And finally exactly one osbuild assembler.
+      "assembler": {
+         "name": "",
+         "options": {}
+      }
+   },
+}
+```
+
+#### Version 2
+```yaml
+{
+   "version": "2",
+   "sources": {},
+   "pipelines": [
+      {
+         # A custom name for each pipeline. "build" here is used only
+         # as an example.
+         "name": "build",
+         # The runner is again optional.
+         "runner": "",
+         "stages": [
+            {
+               # The "type" is same as "name" in v1.
+               "type": "",
+               # The "inputs" field is new in v2. You can specify what goes to
+               # the stage. Example inputs are RPMs and OSTree commits from the
+               # "sources" section, but also filesystem trees built by othe
+               # pipelines.
+               "inputs": {},
+               "options": {}
+            }
+         ]
+      },
+      {
+         # Again only example name.
+         "name": "build-fs-tree",
+         # But this time the pipeline can use the previous one as a build pipeline.
+         "build": "name:build",
+         "stages": []
+      },
+      {
+         "name": "do-sth-with-the-tree",
+         "build": "name:build",
+         "stages": [
+            {
+               "type": "",
+               "inputs": {
+                  # This is an example of how to use the filesystem tree built by
+                  # another pipeline as an input to this stage.
+                  "tree": {
+                     "type": "org.osbuild.tree",
+                     "origin": "org.osbuild.pipeline",
+                     "references": [
+                        # This is the reference to the name of the pipeline.
+                        "name:build-fs-tree"
+                     ]
+                  }
+               },
+               "options": {}
+            }
+         ]
+      },
+      {
+         # In v2 the assembler is a pipeline as well.
+         "name": "assembler",
+         "build": "name:build",
+         "stages": []
+      }
+   ]
+}
+```
 
 ### Components of osbuild
 
