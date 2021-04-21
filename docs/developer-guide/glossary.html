@@ -3,9 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Image Builder in cloud.redhat.com guide</title>
-        
-        <meta name="robots" content="noindex" />
+        <title>Glossary - OSBuild guides</title>
         
         
 
@@ -20,28 +18,28 @@
         <meta name="theme-color" content="#ffffff" />
 
         
-        <link rel="icon" href="favicon.svg">
+        <link rel="icon" href="../favicon.svg">
         
         
-        <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="../favicon.png">
         
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
         
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="stylesheet" href="../css/print.css" media="print">
         
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
         
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -51,7 +49,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -97,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="image-builder-in-stage.html"><strong aria-hidden="true">1.</strong> Using Image Builder in the stage environment</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../user-guide/user-guide.html"><strong aria-hidden="true">1.</strong> User guide</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../user-guide/installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../user-guide/basic-concepts.html"><strong aria-hidden="true">1.2.</strong> Basic concepts</a></li><li class="chapter-item expanded "><a href="../user-guide/building-an-image-from-cli.html"><strong aria-hidden="true">1.3.</strong> Building an image from the command line</a></li><li class="chapter-item expanded "><a href="../user-guide/uploading-to-aws.html"><strong aria-hidden="true">1.4.</strong> Uploading an image to AWS</a></li><li class="chapter-item expanded "><a href="../user-guide/managing-repositories.html"><strong aria-hidden="true">1.5.</strong> Managing repositories</a></li><li class="chapter-item expanded "><a href="../user-guide/building-ostree-images.html"><strong aria-hidden="true">1.6.</strong> Building OSTree image</a></li><li class="chapter-item expanded "><a href="../user-guide/edge-container+installer.html"><strong aria-hidden="true">1.7.</strong> Building OSTree container and installer</a></li></ol></li><li class="chapter-item expanded "><a href="../blueprint-reference/blueprint-reference.html"><strong aria-hidden="true">2.</strong> Blueprint reference</a></li><li class="chapter-item expanded "><a href="../developer-guide/developer-guide.html"><strong aria-hidden="true">3.</strong> Developer guide</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../developer-guide/osbuild.html"><strong aria-hidden="true">3.1.</strong> OSBuild</a></li><li class="chapter-item expanded "><a href="../developer-guide/osbuild-composer.html"><strong aria-hidden="true">3.2.</strong> osbuild-composer</a></li><li class="chapter-item expanded "><a href="../developer-guide/latest-rpm-builds.html"><strong aria-hidden="true">3.3.</strong> Latest RPM builds</a></li><li class="chapter-item expanded "><a href="../developer-guide/testing.html"><strong aria-hidden="true">3.4.</strong> Testing strategy</a></li><li class="chapter-item expanded "><a href="../developer-guide/glossary.html" class="active"><strong aria-hidden="true">3.5.</strong> Glossary</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -129,11 +127,11 @@
                         
                     </div>
 
-                    <h1 class="menu-title">Image Builder in cloud.redhat.com guide</h1>
+                    <h1 class="menu-title">OSBuild guides</h1>
 
                     <div class="right-buttons">
                         
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
@@ -165,92 +163,31 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#using-image-builder-in-staging-environment-from-command-line" id="using-image-builder-in-staging-environment-from-command-line">Using Image Builder in staging environment from command line</a></h1>
-<p>Image Builder is an instance of an upstream image-builder project. You can find the code and report issues here: <a href="https://github.com/osbuild/image-builder">https://github.com/osbuild/image-builder</a> . It provides a REST API, which is accessible using the squid.corp.redhat.com HTTP proxy server.</p>
-<p>All you need to access the service is the “curl” tool which is available on any operating system and a user account in staging environment.</p>
-<h2><a class="header" href="#create-account-in-stage-environment" id="create-account-in-stage-environment">Create account in stage environment</a></h2>
-<p>Start here:<a href="http://account-manager-stage.app.eng.rdu2.redhat.com/#create">http://account-manager-stage.app.eng.rdu2.redhat.com/#create</a></p>
-<p>and:</p>
-<ul>
-<li>Fill in a username which is <strong>not</strong> your kerberos name, for example <code>image-builder-&lt;nickname&gt;</code>.</li>
-<li>Create new password which is <strong>not</strong> your kerberos password.</li>
-<li>Assign yourself these SKUs (something like a subscription): <code>MCT3475, MCT3718, RH0105260, RH00003</code></li>
-<li>Check that you are creating the account in &quot;Stage&quot; environment</li>
-<li>Click &quot;Create&quot;</li>
-</ul>
-<p>Now using your new account name and password, you can display the available API endpoints like this:</p>
-<pre><code>curl --user &quot;username:password&quot; \
-        --proxy http://squid.corp.redhat.com:3128 \
-        https://cloud.stage.redhat.com/api/image-builder/v1/openapi.json
-</code></pre>
-<p>The command contains:</p>
-<ul>
-<li>Your credentials after the <code>--user</code> CLI flag</li>
-<li>URL of the HTTP proxy server after the <code>--proxy</code> flag</li>
-<li>URL of the staging instance of image builder</li>
-</ul>
-<p><em>Tip: If you want nice formatting of the JSON object, use the “jq” tool):</em></p>
-<pre><code>curl --user &quot;username:password&quot; \
-        --proxy http://squid.corp.redhat.com:3128 \
-        https://cloud.stage.redhat.com/api/image-builder/v1/openapi.json | jq .
-</code></pre>
-<h2><a class="header" href="#creating-and-monitoring-a-compose" id="creating-and-monitoring-a-compose">Creating and monitoring a compose</a></h2>
-<p>There are two main API endpoints related to starting and monitoring a compose:</p>
-<ol>
-<li>HTTP POST /v1/compose</li>
-<li>HTTP GET /v1/composes/<uuid></li>
-</ol>
-<p>If you want to start a new compose, you need to create a JSON file containing a description of the image you want. For example:</p>
-<pre><code class="language-json">{
-  &quot;distribution&quot;: &quot;rhel-8&quot;,
-  &quot;image_requests&quot;: [
-    {
-      &quot;architecture&quot;: &quot;x86_64&quot;,
-      &quot;image_type&quot;: &quot;ami&quot;,
-      &quot;upload_requests&quot;: [
-        {
-          &quot;type&quot;: &quot;aws&quot;,
-          &quot;options&quot;: {
-            &quot;share_with_accounts&quot;: [
-              &quot;your-aws-account-id&quot;
-            ]
-          }
-        }
-      ]
-    }
-  ]
-}
-</code></pre>
-<p>Save the file as “image-builder-request.json”.</p>
-<p>Given the JSON file above, Image Builder will create a RHEL 8 AMI image for x86_64 architecture and upload it to AWC EC2. It will then share the AMI with the specified account.</p>
-<p>Now trigger a new compose:</p>
-<pre><code>curl --user &quot;username:password&quot; \
-        --proxy http://squid.corp.redhat.com:3128 \
-        -d &quot;@image-builder-request.json&quot; -X POST \
-        -H &quot;Content-Type: application/json&quot; \
-        https://cloud.stage.redhat.com/api/image-builder/v1/compose
-{&quot;id&quot;:&quot;cb13b6e6-d24e-4417-a4f4-547f410609e1&quot;}
-</code></pre>
-<p>The command specifies:</p>
-<ul>
-<li>JSON body of the message (-d)</li>
-<li>HTTP POST method (-X)</li>
-<li>HTTP header “Content-Type” (-H)</li>
-<li>The output contains id of the newly created compose which you can use to monitor it:</li>
-</ul>
-<pre><code>curl --user &quot;username:password&quot; \
-        --proxy http://squid.corp.redhat.com:3128 \
-        -H &quot;Content-Type: application/json&quot; \
-        https://cloud.stage.redhat.com/api/image-builder/v1/composes/cb13b6e6-d24e-4417-a4f4-547f410609e1
-{&quot;status&quot;:&quot;running&quot;}
-</code></pre>
-<p>Once the status is “success”, you can go to your AWS account and check the list of available AMIs. The AMI will appear in <code>us-east-1</code>.</p>
-<p><em>(TODO: we need a way to identify the AMI and region)</em></p>
+                        <h1 id="glossary"><a class="header" href="#glossary">Glossary</a></h1>
+<table><thead><tr><th>Term</th><th>Explanation</th></tr></thead><tbody>
+<tr><td>AMI</td><td>Amazon Machine Image (image type)</td></tr>
+<tr><td>Blueprint</td><td>Definition of customizations in the image</td></tr>
+<tr><td>Compose</td><td>Request from the user that produces one or more images. Images in a single compose are, in theory, the same, but for different platforms, such as Azure or AWS. In practice they are slightly different because every cloud platform requires a different package set and system configuration. osbuild-composer running the Weldr API can only create one image at a time, so one compose maps directly to one image build. It can map to multiple image builds when used with other APIs, such as the Koji API.</td></tr>
+<tr><td>Composer API</td><td>HTTP API meant as publicly accessible (over TCP). It was created specifically for osbuild-composer and does not support some Weldr features like blueprint management, but adds new features like building different distros and architectures.</td></tr>
+<tr><td>GCP</td><td>Google Cloud Platform</td></tr>
+<tr><td>Image Build</td><td>One request from osbuild-composer to osbuild-worker. Its result is a single image.</td></tr>
+<tr><td>Image Type</td><td>Image file format usually associated with a specific use case. For example: AMI for AWS, qcow2 for OpenStack, etc.</td></tr>
+<tr><td>Manifest</td><td>Input for the osbuild tool. It should be a precise definition of an image. See https://www.osbuild.org/man/osbuild-manifest.5 for more information.</td></tr>
+<tr><td>osbuild</td><td>Low-level tool for building images. Not meant for end-user usage.</td></tr>
+<tr><td>osbuild-composer</td><td>HTTP service for building OS images.</td></tr>
+<tr><td>OSTree</td><td>Base technology for immutable OS images: Fedora IoT and RHEL Edge</td></tr>
+<tr><td>Repository overrides</td><td>osbuild-composer uses its own set of repository definitions. In case a user wants to use custom repositories, &quot;overrides&quot; can be created in /etc/osbuild-composer</td></tr>
+<tr><td>Weldr API</td><td>Local HTTP API used for communication between composer-cli/cockpit-composer and osbuild-composer. It comes from the lorax-composer project.</td></tr>
+</tbody></table>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../developer-guide/testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
                         
 
                         
@@ -261,6 +198,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../developer-guide/testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
                 
 
                 
@@ -283,26 +224,18 @@
         
 
         
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
         
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         
 
-        
-        
-        <script type="text/javascript">
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
-        
         
 
     </body>
